@@ -4,6 +4,8 @@
 > **完全免费、离线可用、代码不出本机。**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![GitHub release](https://img.shields.io/badge/release-v1.0.0-blue)](https://github.com/newusually/devai-studio/releases)
+[![Downloads](https://img.shields.io/github/downloads/newusually/devai-studio/total)](https://github.com/newusually/devai-studio/releases)
 [![Electron](https://img.shields.io/badge/Electron-45-blue.svg)](https://electronjs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.5-blue.svg)](https://typescriptlang.org)
 
@@ -208,7 +210,13 @@ A: `%APPDATA%\DevAI Studio\data\devai.db`（SQLite，WAL 模式）。
 
 ---
 
-## 九、许可证
+## 九、下载
+
+前往 [Releases 页面](https://github.com/newusually/devai-studio/releases) 下载安装包：
+
+- `DevAI-Studio-Setup-1.0.0-x64.exe` —— Windows 安装版（桌面快捷方式 + 开始菜单 + 图标）
+
+## 十、许可证
 
 MIT —— 完全免费，可商用、可修改、可闭源分发。
 

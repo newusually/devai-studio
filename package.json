@@ -4,13 +4,12 @@
   "version": "1.0.0",
   "description": "免费开源的本地 AI 编程助手 —— 对话式写代码、自动识别错误并修复、代码分析、本地大模型支持",
   "author": {
-    "name": "DevAI Studio Contributors",
-    "email": "devai@example.com"
+    "name": "newusually"
   },
-  "homepage": "https://github.com/yourname/devai-studio",
+  "homepage": "https://github.com/newusually/devai-studio",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourname/devai-studio.git"
+    "url": "https://github.com/newusually/devai-studio.git"
   },
   "license": "MIT",
   "main": "dist/main/index.js",
@@ -124,5 +123,8 @@
   "allowScripts": {
     "electron": true,
     "esbuild": true
+  },
+  "bugs": {
+    "url": "https://github.com/newusually/devai-studio/issues"
   }
 }
