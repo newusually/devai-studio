@@ -316,7 +316,7 @@ export class ToolBox {
     return {
       ok: true,
       data: { stat: r.text, diff: r2.text },
-      text: r.text + '\n' + r2.text.slice(0, 10000),
+      text: (r.text || '') + '\n' + (r2.text || '').slice(0, 10000),
     };
   }
 }

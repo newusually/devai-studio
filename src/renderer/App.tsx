@@ -12,6 +12,7 @@ import ChatPane from './components/ChatPane';
 import SidePanel from './components/SidePanel';
 import SettingsModal from './components/SettingsModal';
 import AgentBar from './components/AgentBar';
+import VideoPanel from './components/VideoPanel';
 import { StreamEvent } from '../shared/types';
 
 export interface Msg {
@@ -35,7 +36,7 @@ export default function App() {
   const [diagnostics, setDiagnostics] = useState<any[]>([]);
   const [streaming, setStreaming] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
-  const [rightTab, setRightTab] = useState<'diag' | 'files' | 'git'>('diag');
+  const [rightTab, setRightTab] = useState<'diag' | 'files' | 'git' | 'video'>('diag');
   const [toast, setToast] = useState<string>('');
 
   const curStreamId = useRef<string>('');
@@ -325,12 +326,14 @@ export default function App() {
           </button>
           <button className={rightTab === 'files' ? 'tab on' : 'tab'} onClick={() => setRightTab('files')}>文件</button>
           <button className={rightTab === 'git' ? 'tab on' : 'tab'} onClick={() => setRightTab('git')}>Git</button>
+          <button className={rightTab === 'video' ? 'tab on' : 'tab'} onClick={() => setRightTab('video')}>短视频</button>
         </div>
         <SidePanel
           tab={rightTab}
           diagnostics={diagnostics}
           workspace={info.workspace}
           onOpenSettings={() => setShowSettings(true)}
+          onToast={setToast}
         />
       </aside>
 

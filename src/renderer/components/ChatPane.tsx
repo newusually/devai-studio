@@ -168,7 +168,7 @@ function DiffView({ diff }: { diff: string }) {
         const cls = l.startsWith('+') && !l.startsWith('+++') ? 'dl-add'
           : l.startsWith('-') && !l.startsWith('---') ? 'dl-del'
             : l.startsWith('@@') ? 'dl-hunk' : 'dl-ctx';
-        return <div className={`dl ${cls}`} key={i}>{l || ' '}</div>;
+        return <div className={'dl ' + cls} key={i}>{l || ' '}</div>;
       })}
     </div>
   );
@@ -204,7 +204,7 @@ export default function ChatPane({ messages, streaming, onSend, onAbort, onApply
             <div className="welcome-tips">
               <div className="tip"><b>检查代码问题</b><span>扫描工作区，找出语法错误、未使用变量、缺失导入等问题</span></div>
               <div className="tip"><b>解释一段代码</b><span>选中文件后让我说明它的作用和潜在风险</span></div>
-              <div class="tip"><b>修复并应用</b><span>我会给出 diff，你确认后才写入磁盘</span></div>
+              <div className="tip"><b>修复并应用</b><span>我会给出 diff，你确认后才写入磁盘</span></div>
             </div>
           </div>
         )}

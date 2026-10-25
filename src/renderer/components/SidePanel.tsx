@@ -2,17 +2,20 @@
  * renderer/components/SidePanel.tsx —— 右侧面板（问题 / 文件 / Git）
  * ========================================================================== */
 import React, { useEffect, useState } from 'react';
+import VideoPanel from './VideoPanel';
 
 interface Props {
-  tab: 'diag' | 'files' | 'git';
+  tab: 'diag' | 'files' | 'git' | 'video';
   diagnostics: any[];
   workspace: string;
   onOpenSettings: () => void;
+  onToast: (m: string) => void;
 }
 
-export default function SidePanel({ tab, diagnostics, workspace, onOpenSettings }: Props) {
+export default function SidePanel({ tab, diagnostics, workspace, onOpenSettings, onToast }: Props) {
   if (tab === 'diag') return <DiagPanel diagnostics={diagnostics} />;
   if (tab === 'files') return <FilesPanel workspace={workspace} />;
+  if (tab === 'video') return <VideoPanel onToast={onToast} />;
   return <GitPanel workspace={workspace} onOpenSettings={onOpenSettings} />;
 }
 

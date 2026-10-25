@@ -218,7 +218,7 @@ export class ProviderRegistry {
 
   /** 探测所有来源 */
   async probeAll(): Promise<Array<{ kind: ProviderKind; ok: boolean; message: string; latencyMs?: number }>> {
-    const out = [];
+    const out: Array<{ kind: ProviderKind; ok: boolean; message: string; latencyMs?: number }> = [];
     for (const slot of SLOTS) {
       const p = this.create(slot.kind);
       if (!p) continue;

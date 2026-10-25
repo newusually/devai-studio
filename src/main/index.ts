@@ -701,7 +701,7 @@ function registerIpc() {
 
   /* ---- 修复 ---- */
   ipcMain.handle(IPC.PATCH_APPLY, async (_e, sessionId: string, patch: any) => {
-    const results = [];
+    const results: Array<{ path: string; ok: boolean; error?: string }> = [];
     for (const c of patch.changes || []) {
       const r = await tools.run('write_file', { path: c.path, content: c.after });
       results.push({ path: c.path, ok: r.ok, error: r.error });
@@ -713,7 +713,7 @@ function registerIpc() {
   ipcMain.handle(IPC.PATCH_REJECT, async (_e, sessionId: string, patchId: string) => {
     // 回滚：把 before 内容写回去
     const detail = store.getSession(sessionId);
-    const out = [];
+    const out: Array<{ path: string; ok: boolean }> = [];
     for (const c of detail?.changes || []) {
       if (c.before !== undefined) {
         const r = await tools.run('write_file', { path: c.path, content: c.before });

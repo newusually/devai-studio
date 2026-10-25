@@ -41,7 +41,7 @@ export class GitService {
         });
       });
       p.on('close', (code) => {
-        resolve({ ok: code === 0, code, stdout: out, stderr: err });
+        resolve({ ok: code === 0, code: code ?? undefined, stdout: out, stderr: err });
       });
     });
   }
