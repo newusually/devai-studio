@@ -169,9 +169,21 @@ async function runSelfCheck(win: BrowserWindow) {
 
   const shot = async (name: string) => {
     try {
+      // 窗口被遮挡/最小化时 capturePage 可能返回空图 → 先确保可见并置顶
+      if (win.isMinimized()) win.restore();
+      win.show();
+      win.focus();
+      await new Promise(r => setTimeout(r, 350));
       const img = await win.webContents.capturePage();
-      writeFileSync(join(outDir, name), img.toPNG());
-    } catch (e) { }
+      const buf = img.toPNG();
+      if (buf && buf.length > 1000) {
+        writeFileSync(join(outDir, name), buf);
+      } else {
+        console.log('SHOT_EMPTY=' + name + ' bytes=' + (buf ? buf.length : 0));
+      }
+    } catch (e: any) {
+      console.log('SHOT_ERR=' + name + ' ' + (e?.message || e));
+    }
   };
 
   const probe = async (js: string) => {
@@ -226,6 +238,15 @@ async function runSelfCheck(win: BrowserWindow) {
   const p3 = await probe(`document.querySelectorAll('.slot').length`);
   console.log('SLOTS=' + p3);
   await shot('04-settings.png');
+
+  // 短视频标签
+  await probe(`document.querySelector('.modal-x')?.click()`);
+  await new Promise(r => setTimeout(r, 500));
+  await probe(`Array.from(document.querySelectorAll('.tabs .tab')).find(t=>t.textContent.includes('短视频'))?.click()`);
+  await new Promise(r => setTimeout(r, 700));
+  const vidTab = await probe(`({ tabs: Array.from(document.querySelectorAll('.tabs .tab')).map(t=>t.textContent.trim()), vp: document.querySelectorAll('.vp-intro').length })`);
+  console.log('VIDEO_TAB=' + JSON.stringify(vidTab));
+  await shot('07-video.png');
 
   // 诊断面板
   await probe(`document.querySelector('.modal-x')?.click()`);
