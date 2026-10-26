@@ -1,0 +1,160 @@
+{
+  "name": "devai-studio",
+  "productName": "DevAI Studio",
+  "version": "1.1.0",
+  "description": "免费开源的本地 AI 编程助手 —— 对话式写代码、自动识别错误并修复、代码分析、本地大模型支持",
+  "author": {
+    "name": "newusually"
+  },
+  "homepage": "https://github.com/newusually/devai-studio",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/newusually/devai-studio.git"
+  },
+  "license": "MIT",
+  "main": "dist/main/index.js",
+  "scripts": {
+    "dev": "concurrently -k \"npm:dev:main\" \"npm:dev:renderer\"",
+    "dev:main": "tsc -p tsconfig.main.json --watch",
+    "dev:renderer": "vite",
+    "build:main": "tsc -p tsconfig.main.json",
+    "build:renderer": "vite build",
+    "build": "npm run build:main && npm run build:renderer",
+    "start": "npm run build && electron .",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "predist": "node scripts/bundle-ollama.js",
+    "dist": "npm run build && electron-builder --win nsis",
+    "dist:dir": "npm run build && electron-builder --win --dir",
+    "lint": "eslint src --ext .ts,.tsx",
+    "test": "node --test tests/*.test.js",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "dependencies": {
+    "@codemirror/commands": "^6.6.0",
+    "@codemirror/lang-javascript": "^6.2.2",
+    "@codemirror/lang-markdown": "^6.3.0",
+    "@codemirror/lang-python": "^6.1.6",
+    "@codemirror/language": "^6.10.2",
+    "@codemirror/search": "^6.5.6",
+    "@codemirror/state": "^6.4.1",
+    "@codemirror/theme-one-dark": "^6.1.2",
+    "@codemirror/view": "^6.34.0",
+    "@lezer/highlight": "^1.2.0",
+    "diff": "^5.2.0",
+    "electron-store": "^8.2.0",
+    "iconv-lite": "^0.6.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "typebox": "^1.4.1"
+  },
+  "devDependencies": {
+    "@types/diff": "^5.2.1",
+    "@types/node": "^20.14.0",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "electron": "^45.0.0",
+    "electron-builder": "^24.13.3",
+    "esbuild": "^0.21.5",
+    "eslint": "^8.57.0",
+    "typescript": "^7.1.0-dev.20261016.1",
+    "vite": "^5.4.2"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "build": {
+    "appId": "com.devai.studio",
+    "productName": "DevAI Studio",
+    "copyright": "Copyright © 2026 DevAI Studio Contributors",
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "dist/**/*",
+      "resources/**/*",
+      "!resources/ollama/**/*",
+      "!resources/models/**/*",
+      "!resources/skills/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "resources/ollama",
+        "to": "ollama",
+        "filter": [
+          "**/*"
+        ]
+      },
+      {
+        "from": "resources/skills",
+        "to": "skills",
+        "filter": [
+          "**/*"
+        ]
+      },
+      {
+        "from": "resources/models",
+        "to": "models",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico",
+      "artifactName": "DevAI-Studio-Setup-${version}-${arch}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": false,
+      "createStartMenuShortcut": false,
+      "shortcutName": "DevAI Studio",
+      "menuCategory": "DevAI Studio",
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico",
+      "installerHeaderIcon": "build/icon.ico",
+      "deleteAppDataOnUninstall": false,
+      "include": "build/installer.nsh",
+      "artifactName": "DevAI-Studio-Setup-${version}-${arch}.${ext}"
+    },
+    "extraFiles": [
+      {
+        "from": "build/launcher.exe",
+        "to": "launcher.exe"
+      },
+      {
+        "from": "build/nowin.exe",
+        "to": "nowin.exe"
+      }
+    ],
+    "mac": {
+      "target": "dmg",
+      "category": "public.app-category.developer-tools"
+    },
+    "linux": {
+      "target": "AppImage",
+      "category": "Development"
+    }
+  },
+  "allowScripts": {
+    "electron": true,
+    "esbuild": true
+  },
+  "bugs": {
+    "url": "https://github.com/newusually/devai-studio/issues"
+  }
+}

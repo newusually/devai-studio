@@ -1,0 +1,26 @@
+node_modules/
+dist/
+release/
+shots/
+*.log
+.DS_Store
+Thumbs.db
+*.tsbuildinfo
+.devai/
+
+# Ollama 运行时（1.6GB 安装包 + CUDA/ROCm 库）—— 不入库，用户自行安装
+ollama/
+ollama-setup.exe
+# 打包时由 scripts/bundle-ollama.js 从本地 Ollama 安装复制而来（见 predist）
+resources/ollama/
+# 内置模型二进制（1.1GB）—— 不入库（避免 git 仓库过大），只随 electron-builder extraResources 打进安装包
+resources/models/
+# 一次性测试输出
+devai-test-cwd.txt
+*.test-cwd.txt
+# 本地临时打包暂存（用 @electron/asar 手动时产生）
+build-tmp-asar/
+
+# electron-builder 临时产物（打包输出）
+release-*/
+win-unpacked/
